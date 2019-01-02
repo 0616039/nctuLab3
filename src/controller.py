@@ -104,7 +104,7 @@ class SimpleController1(app_manager.RyuApp):
                 actions=actions)
             # For h2-h1 flow: s3 -> s1 -> h1
             match = parser.OFPMatch(
-                in_port=3,
+                in_port=2,
                 eth_type=0x0800,
                 ipv4_src="10.0.0.2",
                 ipv4_dst="10.0.0.1",
@@ -120,13 +120,13 @@ class SimpleController1(app_manager.RyuApp):
         if msg.datapath.id == 2:
             # For h2-h1 flow: s3 -> s2 -> s1
             match = parser.OFPMatch(
-                in_port=1,
+                in_port=3,
                 eth_type=0x0800,
                 ipv4_src="10.0.0.2",
                 ipv4_dst="10.0.0.1",
                 ip_proto=17,
                 udp_dst=5566)
-            actions = [parser.OFPActionOutput(2)]
+            actions = [parser.OFPActionOutput(1)]
             self.add_flow(
                 datapath=datapath,
                 priority=3,
