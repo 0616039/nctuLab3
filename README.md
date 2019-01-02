@@ -29,7 +29,7 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
 > TODO:
 > * Describe how you finish this work in detail
 
-1. Environment Setup
+1. Environment Setup  
    1.登入 root  
    2.clone 進自己的 github  
    3.輸入sudo service openvswitch-switch start  
