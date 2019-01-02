@@ -1,33 +1,3 @@
-<<<<<<< HEAD
-from mininet.topo import Topo
-from mininet.link import TCLink
-
-class Topology(Topo):
-    def __init__(self):
-        # Initialize topology
-        Topo.__init__(self)
-
-        # Add hosts into topology
-        h1 = self.addHost('h1')
-        h2 = self.addHost('h2')
-
-        # Add switches into topology
-        s1 = self.addSwitch('s1')
-        s2 = self.addSwitch('s2')
-        s3 = self.addSwitch('s3')
-
-        # Add links into topology
-        self.addLink(s1, h1, port1=1, port2=1)
-        self.addLink(s3, h2, port1=1, port2=1)
-        self.addLink(s1, s3, port1=3, port2=2)
-        self.addLink(s1, s2, port1=2, port2=1)
-        self.addLink(s3, s2, port1=3, port2=2)
-      
-
-topos = {
-    'topo': (lambda: Topology())
-}
-=======
 #!/usr/bin/python
 #
 # An exmaple of Ryu controller
@@ -132,9 +102,9 @@ class SimpleController1(app_manager.RyuApp):
                 priority=3,
                 match=match,
                 actions=actions)
-            # For h2-h1 flow: s2-> s1 -> h1
+            # For h2-h1 flow: s3 -> s1 -> h1
             match = parser.OFPMatch(
-                in_port=2,
+                in_port=3,
                 eth_type=0x0800,
                 ipv4_src="10.0.0.2",
                 ipv4_dst="10.0.0.1",
@@ -146,25 +116,10 @@ class SimpleController1(app_manager.RyuApp):
                 priority=3,
                 match=match,
                 actions=actions)
-        # Add forwarding rule in s2
-        if msg.datapath.id == 2:
-            # For h2-h1 flow: s3 -> s2 -> s1
-            match = parser.OFPMatch(
-                in_port=2,
-                eth_type=0x0800,
-                ipv4_src="10.0.0.2",
-                ipv4_dst="10.0.0.1",
-                ip_proto=17,
-                udp_dst=5566)
-            actions = [parser.OFPActionOutput(1)]
-            self.add_flow(
-                datapath=datapath,
-                priority=3,
-                match=match,
-                actions=actions)
+
         # Add forwarding rule in s3
         if msg.datapath.id == 3:
-            # For h2-h1 flow: h2 -> s3 -> s2
+            # For h2-h1 flow: h2 -> s3 -> s1
             match = parser.OFPMatch(
                 in_port=1,
                 eth_type=0x0800,
@@ -172,7 +127,7 @@ class SimpleController1(app_manager.RyuApp):
                 ipv4_dst="10.0.0.1",
                 ip_proto=17,
                 udp_dst=5566)
-            actions = [parser.OFPActionOutput(3)]
+            actions = [parser.OFPActionOutput(2)]
             self.add_flow(
                 datapath=datapath,
                 priority=3,
@@ -268,4 +223,3 @@ class SimpleController1(app_manager.RyuApp):
         self.net.add_edges_from(links)
         print('*** List of links')
         print(self.net.edges())
->>>>>>> b42269140400df6b23426f93ce20b451071bbb1a
