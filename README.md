@@ -18,10 +18,18 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
 
 
 > * How to run your program?  
-
-> * What is the meaning of the executing command (both Mininet and Ryu controller)?
+    1.在第一個terminal輸入sudo mn --custom topo.py --topo topo --link tc --controller remote  
+    2.在第二個terminal輸入sudo ryu-manager SimpleController.py --observe-links或是sudo ryu-manager controller.py --observe-links        
+> * What is the meaning of the executing command (both Mininet and Ryu controller)?  
+    mn : mininet
+    --custom topo.py : 透過 -–custom 參數指定 py 檔  
+    --topo topo : 根據 python 中最後一行的名稱  
+    --link tc : 使用者可以用連線進行設定  
+    --controller remote : 設置controller, remote = 外部controller控制  
+    ryu-manager : 啟動ryu  
+    --observe-links : 自動下發LLDP
 > * Show the screenshot of using iPerf command in Mininet (both `SimpleController.py` and `controller.py`)
-
+   
 ---
 ## Description
 
@@ -58,8 +66,6 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
    8.會跑出結果，之後再exit第一個terminal,結束第二個terminal   
 ### Discussion
 
-> TODO:
-> * Answer the following questions
 
 1. Describe the difference between packet-in and packet-out in detail.
    
@@ -83,8 +89,6 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
 ---
 ## References
 
-> TODO: 
-> * Please add your references in the following
 
 * **Ryu SDN**
     * [Ryubook Documentation](https://osrg.github.io/ryu-book/en/html/)
