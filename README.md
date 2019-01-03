@@ -78,7 +78,10 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
     ```python
     @set_ev_cls(ofp_event.EventOFPPacketIn, CONFIG_DISPATCHER)
     ```
-  透過  
+    負責 Packet-In 事件 在 Switch 與 Ryu 完成交握的狀況下執行 也代表著，只要更換參數，就能管理 OpenFlow 所提供的事件，也因此可以將管理邏輯，由事件     帶入整體管理環境中。
+    接下來，我們看看事件內部的運作該怎麼規劃。首先，介紹透過事件提取出來的參數：
+    ev.msg：代表 Packet-In 傳入的資訊（包含 switch、in_port_number等...） msg.datapath：在 OpenFlow 中，datapath 代表的就是 Switch               datapath.ofproto、datapath.ofproto_parser：取出此 Switch 中，使用的 OpenFlow 協定及 Switch 與 Ryu 之間的溝通管道。 接下來，介紹執行的部       分。在接收到 Packet-In 的事件時，我們規劃的動作（Action）是將此封包進行 Flooding，也就是傳往除了 in_port 外的所有 port 上。我們透過             ofp_parser建立此動作：
+    actions = [datapath.ofproto_parser.OFPActionOutput(out_port)] 這裡使用到的OFPActionOutput，會依給定的參數而將封包傳往指定 port 上。例如：     ofproto_parser.OFPActionOutput(1)，則代表將封包傳往 port 1。因此在這裡我們使用out_port，規劃封包轉送到除了 in_port 以外的所有 port 上。  
 5. What is the meaning of “datapath” in `controller.py`?    
    OpenFlow 交換器以及 Flow table 的操作都是透過 Datapath 類別的實體來進行。 在一般的情況下，會由事件傳遞給事件管理的訊息中取得  
 6. Why need to set "`ip_proto=17`" in the flow entry?  
@@ -86,13 +89,14 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
 7. Compare the differences between the iPerf results of `SimpleController.py` and `controller.py` in detail.  
     接收到的ACK比例不同  
 8. Which forwarding rule is better? Why?  
-    controller.py is better 
+    controller.py is better  
+    因為它的loss比較少  
     
 ---
 ## References
 * **my refrerence**  
-    *[ryu](https://osrg.github.io/ryu-book/zh_tw/html/switching_hub.html)  
-    *[table miss](https://www.cnblogs.com/CasonChan/p/4620652.html)  
+    * [ryu](https://osrg.github.io/ryu-book/zh_tw/html/switching_hub.html)  
+    * [table miss](https://www.cnblogs.com/CasonChan/p/4620652.html)  
 * **Ryu SDN**  
     * [Ryubook Documentation](https://osrg.github.io/ryu-book/en/html/)
     * [Ryubook [PDF]](https://osrg.github.io/ryu-book/en/Ryubook.pdf)
