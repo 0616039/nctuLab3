@@ -29,7 +29,8 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
     ryu-manager : 啟動ryu  
     --observe-links : 自動下發LLDP
 > * Show the screenshot of using iPerf command in Mininet (both `SimpleController.py` and `controller.py`)
-   
+   [SimpleController.png]https://github.com/nctucn/lab3-0616039/blob/master/SimpleController.png
+   [controller.png]https://github.com/nctucn/lab3-0616039/blob/master/controller.png
 ---
 ## Description
 
