@@ -81,16 +81,16 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
   透過  
 5. What is the meaning of “datapath” in `controller.py`?    
    OpenFlow 交換器以及 Flow table 的操作都是透過 Datapath 類別的實體來進行。 在一般的情況下，會由事件傳遞給事件管理的訊息中取得  
-6. Why need to set "`ip_proto=17`" in the flow entry?
+6. Why need to set "`ip_proto=17`" in the flow entry?  
    使用UDP  
 7. Compare the differences between the iPerf results of `SimpleController.py` and `controller.py` in detail.  
-    接收到的ACK比例不同
+    接收到的ACK比例不同  
 8. Which forwarding rule is better? Why?  
     controller.py is better 
     
 ---
 ## References
-* **my refrerence**
+* **my refrerence**  
     *[ryu](https://osrg.github.io/ryu-book/zh_tw/html/switching_hub.html)  
     *[table miss](https://www.cnblogs.com/CasonChan/p/4620652.html)  
 * **Ryu SDN**  
