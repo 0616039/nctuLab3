@@ -36,8 +36,7 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
 
 ### Tasks
 
-> TODO:
-> * Describe how you finish this work in detail
+
 
 1. Environment Setup  
    1.登入 root  
@@ -68,30 +67,33 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
 ### Discussion
 
 
-1. Describe the difference between packet-in and packet-out in detail.
-   
-2. What is “table-miss” in SDN?
-   
-3. Why is "`(app_manager.RyuApp)`" adding after the declaration of class in `controller.py`?
-   
+1. Describe the difference between packet-in and packet-out in detail.  
+   packet-in:對於接收到的封包進行轉送到 Controller 的動作  
+   packet-out:對於接收到來自 Controller 的封包轉送到指定的連接埠    
+2. What is “table-miss” in SDN?  
+   一個packet在一個Flow Table中沒有發現能夠匹配成功的Flow Entry
+3. Why is "`(app_manager.RyuApp)`" adding after the declaration of class in `controller.py`?  
+   要撰寫一支 Ryu 應用程式，你只需要將你的應用程式類別繼承自 RyuApp 即可  
 4. Explain the following code in `controller.py`.
     ```python
     @set_ev_cls(ofp_event.EventOFPPacketIn, CONFIG_DISPATCHER)
     ```
-
-5. What is the meaning of “datapath” in `controller.py`?
-   
+  透過  
+5. What is the meaning of “datapath” in `controller.py`?    
+   OpenFlow 交換器以及 Flow table 的操作都是透過 Datapath 類別的實體來進行。 在一般的情況下，會由事件傳遞給事件管理的訊息中取得  
 6. Why need to set "`ip_proto=17`" in the flow entry?
-   
-7. Compare the differences between the iPerf results of `SimpleController.py` and `controller.py` in detail.
-   
-8. Which forwarding rule is better? Why?
-
+   使用UDP  
+7. Compare the differences between the iPerf results of `SimpleController.py` and `controller.py` in detail.  
+    接收到的ACK比例不同
+8. Which forwarding rule is better? Why?  
+    controller.py is better 
+    
 ---
 ## References
-
-
-* **Ryu SDN**
+* **my refrerence**
+    *[ryu](https://osrg.github.io/ryu-book/zh_tw/html/switching_hub.html)  
+    *[table miss](https://www.cnblogs.com/CasonChan/p/4620652.html)  
+* **Ryu SDN**  
     * [Ryubook Documentation](https://osrg.github.io/ryu-book/en/html/)
     * [Ryubook [PDF]](https://osrg.github.io/ryu-book/en/Ryubook.pdf)
     * [Ryu 4.30 Documentation](https://github.com/mininet/mininet/wiki/Introduction-to-Mininet)
@@ -112,7 +114,6 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
 ---
 ## Contributors
 
-> TODO:
 
 * [0616039](https://github.com/0616039)
 * [David Lu](https://github.com/yungshenglu)
