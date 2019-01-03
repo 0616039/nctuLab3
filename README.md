@@ -16,8 +16,9 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
 ---
 ## Execution
 
-> TODO:
-> * How to run your program?
+
+> * How to run your program?  
+
 > * What is the meaning of the executing command (both Mininet and Ryu controller)?
 > * Show the screenshot of using iPerf command in Mininet (both `SimpleController.py` and `controller.py`)
 
@@ -34,14 +35,27 @@ In this lab, we are going to write a Python program with Ryu SDN framework to bu
    2.clone 進自己的 github  
    3.輸入sudo service openvswitch-switch start  
    4.再輸入sudo mn 試試看  
-2. Example of Ryu SDN
-
-3. Mininet Topology
-
-4. Ryu Controller
-
-5. Measurement
-
+2. Example of Ryu SDN  
+   1.先開一個terminal,輸入 cd /root/Route_Configuration/src/  
+   2. 跑 SimpleTopo.py with Mininet  
+   3.開另外一個terminal,跑 SimpleController.py
+   4.跑 the SimpleController.py with Ryu managerur,輸入 sudo ryu-manager SimpleController.py --observe-links  
+   5.先exit原本的terminal,在退出後來的terminal  
+3. Mininet Topology  
+   1.輸入 cp SimpleTopo.py topo.py  
+   2.在第一個terminal跑topo.py with mininet  
+   3.再在第二個terminal跑 SimpleController.py with Ryu manager  
+4. Ryu Controller  
+   1.根據圖,在controller.py加上連接,有兩條路徑，分別是h1->s1->s3->h2跟h2->s3->s2->s1->h1  
+5. Measurement  
+   1.在第一個terminal輸入 sudo mn --custom topo.py --topo topo --link tc --controller remote 跑topo.py  
+   2.在第二個terminal輸入 sudo ryu-manager SimpleController.py --observe-links 跑SimpleController.py  
+   3.接著再mininet後面輸入  h1 iperf -s -u -i 1 –p 5566 > ./out/result1 &再輸入 h2 iperf -c 10.0.0.1 -u –i 1 –p 5566  
+   4.會跑出結果，之後再exit第一個terminal,結束第二個terminal  
+   5.在第一個terminal輸入 sudo mn --custom topo.py --topo topo --link tc --controller remote 跑topo.py  
+   6.在第二個terminal輸入 sudo ryu-manager controller.py --observe-links 跑controller.py  
+   7.接著再mininet後面輸入  h1 iperf -s -u -i 1 –p 5566 > ./out/result1 &再輸入 h2 iperf -c 10.0.0.1 -u –i 1 –p 5566   
+   8.會跑出結果，之後再exit第一個terminal,結束第二個terminal   
 ### Discussion
 
 > TODO:
